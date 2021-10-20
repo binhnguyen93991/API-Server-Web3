@@ -644,20 +644,6 @@ const asyncHandler = require('express-async-handler')
 let app = express();
 let port = process.env.PORT || 3000;
 
-/*
-Required Node.js
--- Usage --
-1. Make a directory on your pc
-2. Open a terminal 
-3. go inside the created directory
-4. run : npm init
-5. run : npm i --save web3
-6. Create a file: tokenPrice.js
-7. Copy this text inside that file
-8. run: node tokenPrice.js
--- Direct contact --
-https://www.reddit.com/user/Linch-1
-*/
 
 app.use(cors({
   origin: '*'
@@ -747,9 +733,7 @@ async function circulatingSupply(tokenAddres){
   let totalBurn = "0";
   try {
     totalBurn = await tokenRouter.methods.balanceOf("0x000000000000000000000000000000000000dead").call();
-    console.log(totalBurn);
   } catch (error) {
-    console.log(error);
   }
   return (parseInt(totalSupply) - parseInt(totalBurn)) /10 ** parseInt(tokenDecimals);
 }
