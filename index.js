@@ -639,12 +639,18 @@ const tokenAbi = [
 
 const Web3 = require("web3");
 const express = require('express');
+
+const jwt = require('jsonwebtoken');
+
 const cors = require('cors');
 const asyncHandler = require('express-async-handler')
 let app = express();
 let port = process.env.PORT || 3000;
 
+require('dotenv').config();
 
+// middleware
+app.use(express.json());
 app.use(cors({
   origin: '*'
 }));
@@ -751,7 +757,7 @@ This script simply comunicates with the smart contract deployed by pancakeswap a
 function that was build to retrive the token prices
 */
 
-app.get('/:contractAddress', asyncHandler(async (req, res, next) => {
+app.get('/:contractAddress', authenToken, asyncHandler(async (req, res, next) => {
 	const tokenAddres = req.params.contractAddress.toString(); // change this with the token addres that you want to know the
   let bnbPrice = await calcBNBPrice(); // query pancakeswap to get the price of BNB in USDT
   let total = await totalSupply(tokenAddres);
@@ -773,7 +779,7 @@ app.get('/:contractAddress', asyncHandler(async (req, res, next) => {
     "circulatingSupply": circulating,
     "tokenPriceUSD": (priceInBnb * bnbPrice).toFixed(12),
     "tokenPriceBNB": priceInBnb.toFixed(12),
-    "marketCap": circulating * bnbPrice * priceInBnb,
+    "marketCap": Math.round(circulating * bnbPrice * priceInBnb*1000)/1000,
     "blueCheckmark": "true",
     "description": "",
     "website": "",
@@ -792,6 +798,32 @@ app.get('/:contractAddress', asyncHandler(async (req, res, next) => {
     "whitepaper": ""
   })
 }))
+
+const user = ["binhnt", "konpani"];
+
+function authenToken(req, res, next) {
+  const token = req.headers['authorization'];
+  if (!token) res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+    console.log(err, data);
+    if (err) res.sendStatus(403);
+    if(user.indexOf(data.username) !== -1)
+      next();
+    else  res.sendStatus(403);
+  });
+}
+
+app.post('/create', (req, res) => {
+  // Authentication
+  // Authorization
+  // { username: 'Test' }
+  console.log(req.body);
+  const accessToken = jwt.sign(req.body, process.env.ACCESS_TOKEN_SECRET, {
+    // expiresIn: '30s',
+  });
+  res.json({ accessToken });
+});
 
 app.listen(port);
 
