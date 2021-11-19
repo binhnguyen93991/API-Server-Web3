@@ -780,7 +780,7 @@ app.get('/:contractAddress', authenToken, asyncHandler(async (req, res, next) =>
     "tokenPriceUSD": (priceInBnb * bnbPrice).toFixed(12),
     "tokenPriceBNB": priceInBnb.toFixed(12),
     "marketCap": Math.round(circulating * bnbPrice * priceInBnb*1000)/1000,
-    "blueCheckmark": "true",
+    "blueCheckmark": true,
     "description": "",
     "website": "",
     "email": "",

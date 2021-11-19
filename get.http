@@ -1,9 +1,23 @@
-GET http://localhost:3000/0x0ae8b74cd2d566853715800c9927f879d6b76a37
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbnBhbmkiLCJwYXNzd29yZCI6ImtvbnBhbmkiLCJpYXQiOjE2MzUxMzUwMzl9.x2m2VEq9z5fotLRwrYCXv2BJIYqDwNEakJfW29SS-KI
+GET https://api-server-web3.herokuapp.com/0xc748673057861a797275cd8a068abb95a902e8de
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbnBhbmkiLCJwYXNzd29yZCI6ImtvbnBhbmkiLCJpYXQiOjE2MzU5OTU3OTl9.1i88ZDh5X0z2cwDgy1-ayyIo0UmdOUIgCC97UZ31Bs0
 
 ###
 
-POST http://localhost:3000/create
+GET http://localhost:3000/0xc748673057861a797275cd8a068abb95a902e8de
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbnBhbmkiLCJwYXNzd29yZCI6ImtvbnBhbmkiLCJpYXQiOjE2MzU5OTU3OTl9.1i88ZDh5X0z2cwDgy1-ayyIo0UmdOUIgCC97UZ31Bs0
+
+###
+
+POST https://api-server-web-3-ajhei.ondigitalocean.app/create
+Content-Type: application/json
+
+{
+    "username": "konpani",
+    "password": "konpani"
+}
+
+###
+POST https://api-server-web3.herokuapp.com/create
 Content-Type: application/json
 
 {
